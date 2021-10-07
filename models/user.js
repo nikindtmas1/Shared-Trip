@@ -24,8 +24,9 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next){
     bcrypt.genSalt(saltRounds, function(err, salt){
-        bcrypt.hash(myPlaintextPassword, salt, function(err, hash){
-            myPlaintextPassword = hash;
+        bcrypt.hash(password, salt, function(err, hash){
+            password = hash;
+            next();
         });
     });
 });
