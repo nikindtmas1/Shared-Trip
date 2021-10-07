@@ -17,4 +17,12 @@ router.get('/profile', (req, res) => {
     res.render('profile');
 });
 
+router.get('/shared-trips', (req, res) => {
+    res.render('shared-trips');
+});
+
+router.get('/offer-trip', (req, res) => {
+    res.render('trip-create');
+});
+
 module.exports = router;
