@@ -9,13 +9,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    gender: {
-        type: String,
-        required: true
-    },
-    tripsHistory: {
-        
-    }
+    
 });
 
 module.exports = mongoose.model('User', userSchema);
