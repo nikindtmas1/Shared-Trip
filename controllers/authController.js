@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const userService = require('../services/userService');
+const authService = require('../services/authService');
 
 router.get('/auth', (req, res) => {
     res.send('authController');
@@ -15,7 +16,7 @@ router.post('/register', (req, res) => {
 
     let data = req.body;
 
-    userService.createUser(data);
+    authService.register(data);
 
     res.redirect('/');
 });
