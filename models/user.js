@@ -9,6 +9,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+   
+    history: 
+        [{
+            type: 'ObjectId',
+            ref: 'tripModel'
+        }]
+    
     
 });
 
