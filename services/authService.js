@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 
 function register(data){
@@ -9,6 +10,19 @@ function register(data){
 
 }
 
+function login(data){
+
+    User.findOne(data.name)
+    .then(user => {
+
+    })
+    .catch(err => {
+        throw{ message: 'No user', status: 404}
+    })
+
+}
+
 module.exports = {
-    register
+    register,
+    login
 }
