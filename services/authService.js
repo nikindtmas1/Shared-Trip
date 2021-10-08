@@ -12,12 +12,12 @@ function register(data){
 
 function login(data){
 
-    User.findOne(data.name)
+  return  User.findOne(data.name)
     .then(user => {
-
+        if(!user) return Promise.reject({ message: 'No such user' })
     })
     .catch(err => {
-        throw{ message: 'No user', status: 404}
+        throw{ message: 'No such user', status: 404}
     })
 
 }
