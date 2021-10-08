@@ -10,22 +10,17 @@ function register(data){
 
 }
 
-function login(data){
+async function login(data){
 
-  return  User.findOne(data.name)
-    .then(user => {
+  let user = await User.findOne(data.email)
+   console.log(user);
         if(!user) return Promise.reject({ message: 'No such user' })
 
-       return Promise.all([bcrypt.compare(data.password, user.password), user]) 
+       let areEqual = await bcrypt.compare(data.password, user.password)
        
-    })
-    .then(areEqual => {
         if(!areEqual) return Promise.reject({ message: 'Invalid password', status: 404})
-    })
-    .catch(err => {
-        throw{ message: 'No such user', status: 404}
-    })
-
+    
+        return user
 }
 
 module.exports = {

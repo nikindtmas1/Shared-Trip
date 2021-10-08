@@ -45,7 +45,7 @@ router.post('/login',
             return res.status(400).json({ errors: errors.array() });
         }
     let data = req.body;
-
+        console.log(data);
     authService.login(data)
     .then(user => {
         res.redirect('/');
