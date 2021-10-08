@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const { jwt } = require('../utils/jwt');
+const { cookie } = require('../config/expressConfig');
 
 const userService = require('../services/userService');
 const authService = require('../services/authService');
@@ -44,15 +46,75 @@ router.post('/login',
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-    let data = req.body;
-        console.log(data);
-    authService.login(data)
-    .then(user => {
-        res.redirect('/');
+    let {email, password} = req.body;
+
+    User
+    .findOne({ email })
+    .then((user) => {
+        return Promise.all([
+            user.comparePasswords(password),
+            user,
+        ])
+    })
+    .then(([isPasswordsMatched, user]) => {
+        if (!isPasswordsMatched) {
+            throw new Error('The provided password does not matched.');
+        }
+
+        const token = jwt.createToken(user._id);
+
+        res
+            .status(200)
+            .cookie(cookie, token, { maxAge: 3600000 })
+            .redirect('/');
 
     })
-        .catch(next)
+    .catch((e,) => {
+        console.log(e);
+    })
 
+       
+    // authService.login(data)
+    // .then(user => {
+    //     res.redirect('/');
+
+    // })
+    //     .catch(next)
+
+        /**
+            login(req, res, next) {
+
+            const { email, password } = req.body;
+
+            User
+                .findOne({ email })
+                .then((user) => {
+                    return Promise.all([
+                        user.comparePasswords(password),
+                        user,
+                    ])
+                })
+                .then(([isPasswordsMatched, user]) => {
+                    if (!isPasswordsMatched) {
+                        throw new Error('The provided password does not matched.');
+                    }
+
+                    const token = jwt.createToken(user._id);
+
+                    res
+                        .status(200)
+                        .cookie(cookie, token, { maxAge: 3600000 })
+                        .redirect('/shoes/all');
+
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+        }
+    }
+         */
+        
+        
 });
 
 
