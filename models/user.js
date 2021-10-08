@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         bcrypt.genSalt(SETL_ROUNDS)
         .then(salt => bcrypt.hash(this.password, salt))
         .then(hash => {
-            this.password = hash,
+            this.password = hash;
             next();
         });
     
