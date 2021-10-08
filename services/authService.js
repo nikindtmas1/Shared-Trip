@@ -15,6 +15,12 @@ function login(data){
   return  User.findOne(data.name)
     .then(user => {
         if(!user) return Promise.reject({ message: 'No such user' })
+
+       return Promise.all([bcrypt.compare(data.password, user.password), user]) 
+       
+    })
+    .then(areEqual => {
+        if(!areEqual) return Promise.reject({ message: 'Invalid password', status: 404})
     })
     .catch(err => {
         throw{ message: 'No such user', status: 404}
