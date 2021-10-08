@@ -37,7 +37,7 @@ router.get('/login', (req, res) => {
 router.post('/login', 
 
     body('password').trim().isLength({ min: 5 }),
-    (req, res) => {
+    (req, res, next) => {
         body('username').isEmail();
 
         const errors = validationResult(req);
@@ -46,11 +46,13 @@ router.post('/login',
         }
     let data = req.body;
 
-    userService.createUser(data);
+    authService.login(data)
+    .then(user => {
+        res.redirect('/');
 
-    res.redirect('/');
+    })
+        .catch(next)
 
-    res.redirect('/');
 });
 
 
