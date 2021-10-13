@@ -20,16 +20,16 @@ router.post('/register',
     (req, res) => {
         body('username').isEmail();
 
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //     return res.status(400).json({ errors: errors.array() });
+        // }
 
         let data = req.body;
 
         authService.register(data);
 
-        res.redirect('/');
+        res.redirect('/auth/login');
     });
 
 router.get('/login', (req, res) => {
@@ -46,11 +46,11 @@ router.post('/login',
             return res.status(400).json({ errors: errors.array() });
         }
         let data = req.body;
-        
+
         let user = await userService.loginUser(data);
         
 
-      let token = await createToken(user);
+        let token = await createToken(user);
 
        res.cookie('cookieToken', token, {
         httpOnly: true
