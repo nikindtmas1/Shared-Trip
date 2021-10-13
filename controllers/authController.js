@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
-const { jwt } = require('../utils/jwt');
-const { cookie } = require('../config/expressConfig');
+const { createToken } = require('../utils/jwt');
+//const { cookie } = require('../config/expressConfig');
 
 const userService = require('../services/userService');
 const authService = require('../services/authService');
@@ -39,39 +39,48 @@ router.get('/login', (req, res) => {
 router.post('/login', 
 
     body('password').trim().isLength({ min: 5 }),
-    (req, res, next) => {
-        body('username').isEmail();
+    async (req, res, next) => {
+        //body('username').isEmail();
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-    let {email, password} = req.body;
+        let data = req.body;
+        
+        let user = await userService.loginUser(data);
+        
 
-    User
-    .findOne({ email })
-    .then((user) => {
-        return Promise.all([
-            user.comparePasswords(password),
-            user,
-        ])
+      let token = await createToken(user);
+
+       res.cookie('cookieToken', token, {
+        httpOnly: true
     })
-    .then(([isPasswordsMatched, user]) => {
-        if (!isPasswordsMatched) {
-            throw new Error('The provided password does not matched.');
-        }
+        res.redirect('/')
+    // User
+    // .findOne({ email })
+    // .then((user) => {
+    //     return Promise.all([
+    //         user.comparePasswords(password),
+    //         user,
+    //     ])
+    // })
+    // .then(([isPasswordsMatched, user]) => {
+    //     if (!isPasswordsMatched) {
+    //         throw new Error('The provided password does not matched.');
+    //     }
 
-        const token = jwt.createToken(user._id);
+    //     const token = jwt.createToken(user._id);
 
-        res
-            .status(200)
-            .cookie(cookie, token, { maxAge: 3600000 })
-            .redirect('/');
+    //     res
+    //         .status(200)
+    //         .cookie(cookie, token, { maxAge: 3600000 })
+    //         .redirect('/');
 
-    })
-    .catch((e,) => {
-        console.log(e);
-    })
+    // })
+    // .catch((e,) => {
+    //     console.log(e);
+    // })
 
        
     // authService.login(data)
