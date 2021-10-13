@@ -29,7 +29,7 @@ router.get('/offer-trip', (req, res) => {
 router.post('/offer-trip', (req, res) => {
 
     let tripData = req.body;
-    console.log(tripData);
+   
     homeService.createTrip(tripData);
 
     res.redirect('/');
