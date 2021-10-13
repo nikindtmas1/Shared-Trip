@@ -126,5 +126,10 @@ router.post('/login',
         
 });
 
+router.get('/logout', (req, res) => {
+    res.clearCookie('cookieToken');
+    res.redirect('/')
+});
+
 
 module.exports = router;
