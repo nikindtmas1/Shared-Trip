@@ -7,8 +7,13 @@ const errHandler = require('./middlewares/errorHandler');
 const portConfig = require('./config/portConfig');
 const expressSetup = require('./config/expressConfig');
 
+
 expressSetup(app);
 require('./config/mongooseSetup');
+
+
+const { auth } = require('./middlewares/authMIddleware');
+app.use(auth);
 
 
 app.use(routes);
