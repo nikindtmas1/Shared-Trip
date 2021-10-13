@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const homeService = require('../services/homeService');
 
 
 router.get('/', (req, res) => {
@@ -22,8 +23,10 @@ router.get('/offer-trip', (req, res) => {
 
 router.post('/offer-trip', (req, res) => {
 
-    let data = req.body;
-    
+    let tripData = req.body;
+    console.log(tripData);
+    homeService.createTrip(tripData);
+
     res.redirect('/');
 });
 
