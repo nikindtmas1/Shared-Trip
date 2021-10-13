@@ -13,8 +13,13 @@ router.get('/profile', (req, res) => {
     res.render('profile');
 });
 
-router.get('/shared-trips', (req, res) => {
-    res.render('shared-trips');
+router.get('/shared-trips', async (req, res) => {
+
+    homeService.getAll(req.query)
+    .then(results => {
+        res.render('shared-trips', {title: 'Welcome Sharetripers!', results});
+
+    })
 });
 
 router.get('/offer-trip', (req, res) => {
