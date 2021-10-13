@@ -20,6 +20,13 @@ router.get('/offer-trip', (req, res) => {
     res.render('trip-create');
 });
 
+router.post('/offer-trip', (req, res) => {
+
+    let data = req.body;
+    
+    res.redirect('/');
+});
+
 
 function letValide(req, res, next){
     let isValid = true;
