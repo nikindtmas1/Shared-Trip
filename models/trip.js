@@ -10,7 +10,7 @@ const tripSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    data: {
+    date: {
         type: String,
         required: true
     },
@@ -39,12 +39,15 @@ const tripSchema = new mongoose.Schema({
         required: true
     },
     creator: {
-        type: Object
+        type: 'ObjectId',
+        ref: 'userModel'
     },
-    buddies: {
+    buddies: 
+        [{
+            type: 'ObjectId',
+            ref: 'userModel'
+        }]
         
-    }
-
 });
 
 module.exports = mongoose.model('Trip', tripSchema);
