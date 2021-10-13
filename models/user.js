@@ -33,4 +33,8 @@ const userSchema = new mongoose.Schema({
     
     });
 
+    userSchema.static('findByEmail', function(email){
+        return this.findOne({email});
+    })
+
 module.exports = mongoose.model('User', userSchema);
