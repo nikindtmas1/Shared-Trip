@@ -7,9 +7,9 @@ const { createToken } = require('../utils/jwt');
 const userService = require('../services/userService');
 const authService = require('../services/authService');
 
-router.get('/auth', (req, res) => {
-    res.send('authController');
-});
+// router.get('/auth', (req, res) => {
+//     res.send('authController');
+// });
 
 router.get('/register', (req, res) => {
     res.render('register');
@@ -40,7 +40,6 @@ router.post('/login',
 
     body('password').trim().isLength({ min: 5 }),
     async (req, res, next) => {
-        //body('username').isEmail();
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -57,72 +56,7 @@ router.post('/login',
         httpOnly: true
     })
         res.redirect('/')
-    // User
-    // .findOne({ email })
-    // .then((user) => {
-    //     return Promise.all([
-    //         user.comparePasswords(password),
-    //         user,
-    //     ])
-    // })
-    // .then(([isPasswordsMatched, user]) => {
-    //     if (!isPasswordsMatched) {
-    //         throw new Error('The provided password does not matched.');
-    //     }
-
-    //     const token = jwt.createToken(user._id);
-
-    //     res
-    //         .status(200)
-    //         .cookie(cookie, token, { maxAge: 3600000 })
-    //         .redirect('/');
-
-    // })
-    // .catch((e,) => {
-    //     console.log(e);
-    // })
-
-       
-    // authService.login(data)
-    // .then(user => {
-    //     res.redirect('/');
-
-    // })
-    //     .catch(next)
-
-        /**
-            login(req, res, next) {
-
-            const { email, password } = req.body;
-
-            User
-                .findOne({ email })
-                .then((user) => {
-                    return Promise.all([
-                        user.comparePasswords(password),
-                        user,
-                    ])
-                })
-                .then(([isPasswordsMatched, user]) => {
-                    if (!isPasswordsMatched) {
-                        throw new Error('The provided password does not matched.');
-                    }
-
-                    const token = jwt.createToken(user._id);
-
-                    res
-                        .status(200)
-                        .cookie(cookie, token, { maxAge: 3600000 })
-                        .redirect('/shoes/all');
-
-                })
-                .catch((e) => {
-                    console.log(e);
-                })
-        }
-    }
-         */
-        
+    
         
 });
 
