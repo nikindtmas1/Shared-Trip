@@ -1,22 +1,27 @@
 const jwt = require('jsonwebtoken');
 const { SICRET } = require('../config/config');
 
-module.exports = {
 
-    createToken(_id) {
-        return jwt.sign({ _id }, SICRET, { expiresIn: '1h' })
-    },
 
-    verifyToken(token) {
+  function  createToken(user) {
+        //return jwt.sign({ _id }, SICRET, { expiresIn: '1h' })
 
-        return new Promise((resolve, reject) => {
-            jwt.verify(token, SICRET, (err, payload) => {
-                if (err) {
-                    reject(err);
-                    return;
-                }
-                resolve(payload);
-            })
-        })
-    }
-};
+        let payload = {
+            _id: user.get('_id'),
+            email: user.get('email')
+        }
+        let options = {
+            expiresIn: '2d'
+        }
+        let token = jwt.sign(payload, SICRET, options);
+    
+        
+        return token;
+    };
+
+  
+
+    module.exports = {
+
+        createToken
+    };
