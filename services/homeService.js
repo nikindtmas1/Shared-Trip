@@ -7,7 +7,14 @@ function createTrip(tripData){
     return trip.save();
 }
 
+async function getAll(query){
+
+    let result = await Trip.find({}).lean();
+
+    return result;
+}
+
 module.exports = {
     createTrip,
-
+    getAll,
 }
