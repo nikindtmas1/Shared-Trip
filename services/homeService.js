@@ -16,6 +16,9 @@ async function getAll(query){
 
 async function getOne(id){
 
+    let result = await Trip.findById(id).lean();
+
+    return result;
 
 }
 
