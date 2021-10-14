@@ -46,7 +46,11 @@ const tripSchema = new mongoose.Schema({
         [{
             type: 'ObjectId',
             ref: 'userModel'
-        }]
+        }],
+    creator: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }
         
 });
 
