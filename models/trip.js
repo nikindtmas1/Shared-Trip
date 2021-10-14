@@ -38,10 +38,7 @@ const tripSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    creator: {
-        type: 'ObjectId',
-        ref: 'userModel'
-    },
+   
     buddies: 
         [{
             type: 'ObjectId',
