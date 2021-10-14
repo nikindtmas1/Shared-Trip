@@ -29,8 +29,10 @@ router.get('/offer-trip', (req, res) => {
 router.post('/offer-trip', (req, res) => {
 
     let tripData = req.body;
+
+    let creator = req.user._id;
    
-    homeService.createTrip(tripData);
+    homeService.createTrip(tripData, creator);
 
     res.redirect('/');
 });
