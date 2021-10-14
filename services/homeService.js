@@ -1,8 +1,11 @@
 const Trip = require('../models/trip');
 
-function createTrip(tripData){
+function createTrip(tripData, creator){
 
-    let trip = new Trip(tripData);
+    let {startPoint, endPoint, date, time, carImage, carBrand, seats, price, description} = tripData;
+
+
+    let trip = new Trip({startPoint, endPoint, date, time, carImage, carBrand, seats, price, description, creator});
 
     return trip.save();
 }
