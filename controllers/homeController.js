@@ -35,9 +35,12 @@ router.post('/offer-trip', (req, res) => {
     res.redirect('/');
 });
 
-router.get('/trip-details', (req, res) => {
+router.get('/trip-details/:carId',async (req, res) => {
+    
 
-    res.render('trip-details');
+    let result = await homeService.getOne(req.params.carId);
+    
+    res.render('trip-details', { result });
 })
 
 function letValide(req, res, next){
