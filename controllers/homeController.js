@@ -35,6 +35,10 @@ router.post('/offer-trip', (req, res) => {
     res.redirect('/');
 });
 
+router.get('/trip-details', (req, res) => {
+
+    res.render('trip-details');
+})
 
 function letValide(req, res, next){
     let isValid = true;
