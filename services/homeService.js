@@ -14,7 +14,13 @@ async function getAll(query){
     return result;
 }
 
+async function getOne(id){
+
+
+}
+
 module.exports = {
     createTrip,
     getAll,
+    getOne,
 }
