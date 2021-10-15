@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const homeService = require('../services/homeService');
+const { isOwnTrip } = require('../middlewares/tripCreator');
 
 
 router.get('/', (req, res) => {
