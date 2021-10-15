@@ -44,8 +44,9 @@ router.get('/trip-details/:carId',async (req, res) => {
     let result = await homeService.getOne(req.params.carId);
    
     let isOwn = result.creator == req.user._id
+    let email = req.user.email;
     
-    res.render('trip-details', { result, isOwn });
+    res.render('trip-details', { result, isOwn, email });
 })
 
 function letValide(req, res, next){
